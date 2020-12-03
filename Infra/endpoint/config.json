@@ -1,0 +1,5 @@
+{
+  "endpoint": "www.omdbapi.com",
+  "url_prefix": "http://",
+  "apikey":"apikey=abb550ba"
+}

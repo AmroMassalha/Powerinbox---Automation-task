@@ -1,0 +1,219 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 6,
+    "passes": 5,
+    "pending": 0,
+    "failures": 1,
+    "start": "2020-12-03T13:19:44.437Z",
+    "end": "2020-12-03T13:19:45.750Z",
+    "duration": 1313,
+    "testsRegistered": 6,
+    "passPercent": 83.33333333333334,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "a23fb7fe-60eb-4d76-84aa-cd6a8815ede1",
+      "title": "",
+      "fullFile": "",
+      "file": "",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "05d81a1d-9060-4d53-89e6-5e4ea11931f4",
+          "title": "OmdbAPI tests",
+          "fullFile": "/Users/amassalh/OmdbAPI/test/omdbapi.js",
+          "file": "/test/omdbapi.js",
+          "beforeHooks": [
+            {
+              "title": "\"before each\" hook in \"OmdbAPI tests\"",
+              "fullTitle": "OmdbAPI tests \"before each\" hook in \"OmdbAPI tests\"",
+              "timedOut": false,
+              "duration": 0,
+              "state": null,
+              "speed": null,
+              "pass": false,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "",
+              "err": {},
+              "uuid": "0ec9d311-b650-4194-bead-83f018bb5da4",
+              "parentUUID": "05d81a1d-9060-4d53-89e6-5e4ea11931f4",
+              "isHook": true,
+              "skipped": false
+            }
+          ],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "1. Should return result includes specific omdbID",
+              "fullTitle": "OmdbAPI tests 1. Should return result includes specific omdbID",
+              "timedOut": false,
+              "duration": 126,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "var omdbapi = new _omdbapi[\"default\"]('&i=tt12345678');\nvar req = omdbapi.add_params_to_url(true);\ntry {\n  req.end(function (err, res) {\n    if (res.statusCode === 200) {\n      var list = res.body;\n      for (var item in list) {\n        if (item.includes(\"imdbID\")) {\n          (0, _chai.expect)(list[item]).to.be.equal(\"tt12345678\");\n          done();\n        }\n      }\n    } else {\n      console.log(res.statusCode);\n    }\n  });\n} catch (e) {\n  console.log(e);\n}",
+              "err": {},
+              "uuid": "6241e04d-9fe9-4104-b54a-5781e0d060f2",
+              "parentUUID": "05d81a1d-9060-4d53-89e6-5e4ea11931f4",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "2. Should return year not exist",
+              "fullTitle": "OmdbAPI tests 2. Should return year not exist",
+              "timedOut": false,
+              "duration": 69,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "var omdbapi = new _omdbapi[\"default\"](undefined, '&y=2022');\nvar req = omdbapi.add_params_to_url(true);\ntry {\n  req.end(function (err, res) {\n    var list = res.body;\n    for (var item in list) {\n      if (item.includes(\"Error\")) {\n        (0, _chai.expect)(item).to.be.contain('year not exist');\n        done();\n      }\n    }\n  });\n} catch (e) {\n  console.log(e);\n}",
+              "err": {
+                "message": "AssertionError: expected 'Error' to include 'year not exist'",
+                "estack": "AssertionError: expected 'Error' to include 'year not exist'\n    at Test.<anonymous> (test/omdbapi.js:38:44)\n    at Test.assert (node_modules/supertest/lib/test.js:183:6)\n    at localAssert (node_modules/supertest/lib/test.js:133:12)\n    at fn (node_modules/supertest/lib/test.js:130:5)\n    at Test.callback (node_modules/superagent/src/node/index.js:890:12)\n    at fn (node_modules/superagent/src/node/index.js:1130:18)\n    at IncomingMessage.<anonymous> (node_modules/superagent/src/node/parsers/json.js:19:7)\n    at Unzip.<anonymous> (node_modules/superagent/src/node/unzip.js:54:12)\n    at endReadableNT (_stream_readable.js:1183:12)\n    at processTicksAndRejections (internal/process/task_queues.js:80:21)",
+                "diff": null
+              },
+              "uuid": "05962a40-45cf-4abe-9949-8b94acb5c60a",
+              "parentUUID": "05d81a1d-9060-4d53-89e6-5e4ea11931f4",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "3. Should return error code not equal to 200 after sending invalid apikey",
+              "fullTitle": "OmdbAPI tests 3. Should return error code not equal to 200 after sending invalid apikey",
+              "timedOut": false,
+              "duration": 454,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "var omdbapi = new _omdbapi[\"default\"](undefined, '55');\nvar req = omdbapi.add_params_to_url(true);\ntry {\n  req.end(function (err, res) {\n    if (res.statusCode !== 200) {\n      var obj = JSON.parse(JSON.stringify(res.body));\n      (0, _chai.expect)(res.statusCode).to.be.not.equal(200);\n      (0, _chai.expect)(obj.Error).to.be.include('Invalid API key!');\n      done();\n    }\n  });\n} catch (e) {\n  console.log(e);\n}",
+              "err": {},
+              "uuid": "6c00e4c6-05d4-4ea1-8cca-e47011a601e0",
+              "parentUUID": "05d81a1d-9060-4d53-89e6-5e4ea11931f4",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "4. Should return all movies with title includes prom",
+              "fullTitle": "OmdbAPI tests 4. Should return all movies with title includes prom",
+              "timedOut": false,
+              "duration": 100,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "var omdbapi = new _omdbapi[\"default\"](undefined, undefined, '&s=prom');\nvar req = omdbapi.add_params_to_url(true);\ntry {\n  req.end(function (err, res) {\n    if (res.statusCode === 200) {\n      var obj = JSON.parse(JSON.stringify(res.body));\n      (0, _chai.expect)(obj.Search[obj.Search.length - 1].Title).to.be.include('Prom');\n      done();\n    } else {\n      _chai.expect.fail(\"error code != 200 (\".concat(res.statusCode, \")\"));\n    }\n  });\n} catch (e) {\n  console.log(e);\n}",
+              "err": {},
+              "uuid": "f6316011-07b7-48dc-ae5d-5c12705c7693",
+              "parentUUID": "05d81a1d-9060-4d53-89e6-5e4ea11931f4",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "5. Should return all movies with title includes prom AND Year 1980",
+              "fullTitle": "OmdbAPI tests 5. Should return all movies with title includes prom AND Year 1980",
+              "timedOut": false,
+              "duration": 76,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "var omdbapi = new _omdbapi[\"default\"](undefined, '&y=1980', '&s=prom');\nvar req = omdbapi.add_params_to_url(true);\ntry {\n  req.end(function (err, res) {\n    if (res.statusCode === 200) {\n      var obj = JSON.parse(JSON.stringify(res.body));\n      for (var i = 0; i < obj.Search.length; i++) {\n        (0, _chai.expect)(obj.Search[i].Title).to.be.include('Prom');\n        (0, _chai.expect)(obj.Search[i].Year).to.be.equal('1980');\n      }\n      done();\n    } else {\n      _chai.expect.fail(\"error code != 200 (\".concat(res.statusCode, \")\"));\n    }\n  });\n} catch (e) {\n  console.log(e);\n}",
+              "err": {},
+              "uuid": "8eabeb42-1bd9-4853-b3f6-03a450fae10c",
+              "parentUUID": "05d81a1d-9060-4d53-89e6-5e4ea11931f4",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "6. Should return error code not equal to 200 after not sending apikey",
+              "fullTitle": "OmdbAPI tests 6. Should return error code not equal to 200 after not sending apikey",
+              "timedOut": false,
+              "duration": 435,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "var omdbapi = new _omdbapi[\"default\"](undefined, '&y=1980');\nvar req = omdbapi.add_params_to_url(false);\ntry {\n  req.end(function (err, res) {\n    if (res.statusCode !== 200) {\n      var obj = JSON.parse(JSON.stringify(res.body));\n      (0, _chai.expect)(res.statusCode).to.be.not.equal(200);\n      (0, _chai.expect)(obj.Error).to.be.include('No API key provided.');\n      done();\n    }\n  });\n} catch (e) {\n  console.log(e);\n}",
+              "err": {},
+              "uuid": "3f34c43d-b68a-4c96-aa58-a22083d6ba5e",
+              "parentUUID": "05d81a1d-9060-4d53-89e6-5e4ea11931f4",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "6241e04d-9fe9-4104-b54a-5781e0d060f2",
+            "6c00e4c6-05d4-4ea1-8cca-e47011a601e0",
+            "f6316011-07b7-48dc-ae5d-5c12705c7693",
+            "8eabeb42-1bd9-4853-b3f6-03a450fae10c",
+            "3f34c43d-b68a-4c96-aa58-a22083d6ba5e"
+          ],
+          "failures": [
+            "05962a40-45cf-4abe-9949-8b94acb5c60a"
+          ],
+          "pending": [],
+          "skipped": [],
+          "duration": 1260,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 10000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 10000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "8.2.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": true,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "6.2.1"
+    },
+    "marge": {
+      "options": null,
+      "version": "5.1.0"
+    }
+  }
+}
