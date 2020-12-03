@@ -14,12 +14,6 @@ For UI testing used cypress and the installation in the same npm line
 npm i --save-dev subertest mocha chai mochawesome cypress @babel/cli @babel/core @babel/node @babel/register @babel/preset-env
 ```
 
-## Usage
-In the terminal navigate to the cloned project directory 
-```bash
-npm test
-```
-
 ## **_API_** Test cases explanation
 In the 6 test cases tested the functionality of sending parameters to the api.
 In some test cases testing sending different parameters and expecting the descent result, and in another we tested the negative side by sending wrong/not mach params
