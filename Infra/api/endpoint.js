@@ -7,7 +7,7 @@ export default class Endpoint{
         this.apikey = config.apikey;
     };
 
-    get_endpoint_with_apikey() {
+    get_endpoint() {
         return this.url_prefix+this.endpoint
     };
 }

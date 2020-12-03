@@ -3,8 +3,7 @@ import Omdbapi from '../Infra/api/interfaces/omdbapi';
 
 
 describe('OmdbAPI tests', () => {
-    beforeEach(() => {
-    })
+
     it('1. Should return result includes specific omdbID', (done) => {
         let omdbapi = new Omdbapi('&i=tt12345678')
         let req = omdbapi.add_params_to_url(true)

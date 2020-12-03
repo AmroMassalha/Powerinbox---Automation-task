@@ -12,26 +12,26 @@ export default class Omdbapi extends Endpoint {
     }
 
     add_params_to_url(isApiKey) {
-        let url = "/?";
+        let separator = "/?";
         let attribute;
         let paramList = [this.id, this.year, this.search, this.plot];
-        const request = supertest(super.get_endpoint_with_apikey());
+        const request = supertest(super.get_endpoint());
         try {
             if (isApiKey) {
-                url += (`${this.apikey}`)
+                separator += (`${this.apikey}`)
                 for (attribute in paramList) {
                     if (paramList[attribute]) {
-                        url += (`${paramList[attribute]}`);
+                        separator += (`${paramList[attribute]}`);
                     }
                 }
             } else {
                 for (attribute in paramList) {
                     if (paramList[attribute]) {
-                        url += (`${paramList[attribute]}`);
+                        separator += (`${paramList[attribute]}`);
                     }
                 }
             }
-            return request.get(url);
+            return request.get(separator);
         } catch (error) {
             console.log(error);
         }
